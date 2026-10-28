@@ -42,7 +42,7 @@ struct ContentView: View {
     }
 
     private func load() {
-        intervals = BlockListEngine.intervals(from: BlockList.text)
+        intervals = BlockList.active
     }
 
     private func normalized(_ s: String) -> Int64? {
