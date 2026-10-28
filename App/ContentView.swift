@@ -16,7 +16,7 @@ struct ContentView: View {
                     Text(status)
                     Text("Numbers in blocklist: \(total)")
                     if total > BlockListEngine.maxEntries {
-                        Text("Over the iOS limit. Only the first \(BlockListEngine.maxEntries) (lowest numbers) load. Trim blocklist.txt.")
+                        Text("Over the iOS limit. Only the first \(BlockListEngine.maxEntries) (lowest numbers) load. Trim BlockList.swift.")
                             .foregroundColor(.red)
                     }
                     Button("Reload blocklist into iOS") { reload() }
@@ -32,7 +32,7 @@ struct ContentView: View {
                 }
                 Section("Turn it on") {
                     Text("Settings → Apps → Phone → Call Blocking & Identification → switch on Spam Shield Blocker.")
-                    Text("Edit blocklist.txt in your GitHub repo to change ranges; the build makes a new app.")
+                    Text("Edit Shared/BlockList.swift in your GitHub repo to change ranges; the build makes a new app.")
                         .font(.footnote)
                 }
             }
@@ -42,10 +42,7 @@ struct ContentView: View {
     }
 
     private func load() {
-        if let u = Bundle.main.url(forResource: "blocklist", withExtension: "txt"),
-           let t = try? String(contentsOf: u, encoding: .utf8) {
-            intervals = BlockListEngine.intervals(from: t)
-        }
+        intervals = BlockListEngine.intervals(from: BlockList.text)
     }
 
     private func normalized(_ s: String) -> Int64? {
